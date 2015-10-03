@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -116,5 +117,10 @@ public class entranceActivity extends Activity {
 
         Bitmap photoReducedSizeBitmap = BitmapFactory.decodeFile(mImageFileLocation, bmOptions);
         mPhotoCapturedImageView.setImageBitmap(photoReducedSizeBitmap);
+    }
+
+    public void checkMealRecord(View view)
+    {
+        Toast.makeText(this, "Your meal record will be displayed shortly, features under development!", Toast.LENGTH_SHORT).show();
     }
 }
