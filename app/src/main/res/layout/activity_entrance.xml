@@ -10,9 +10,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Take a photo ^-^"
+        android:text="Take a photo ^_^"
         android:id="@+id/photoButton"
-        android:onClick="takePhoto"
+        android:onClick="getDefaultCameraPreview"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
@@ -23,9 +23,16 @@
         android:id="@+id/mealRecordButton"
         android:onClick="checkMealRecord"
         android:layout_below="@+id/photoButton"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp" />
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Use fv camera ^_^"
+        android:id="@+id/fvCameraPreviewButton"
+        android:onClick="getFvCameraPreview"
+        android:layout_below="@+id/mealRecordButton"
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -38,10 +45,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Welcome to FoodVolume!"
-        android:id="@+id/textView"
+        android:id="@+id/welcomePageTextView"
         android:layout_alignTop="@+id/capturePhotoImageView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="137dp" />
+
 
 
 

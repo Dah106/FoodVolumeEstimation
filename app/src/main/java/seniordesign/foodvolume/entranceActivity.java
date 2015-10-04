@@ -8,8 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -24,6 +22,8 @@ public class entranceActivity extends Activity {
     private static final int ACTIVITY_START_CAMERA_APP = 0;
     private ImageView mPhotoCapturedImageView;
     private String mImageFileLocation = "";
+
+    public final static String FVCAMERA_PREVIEW_MESSAGE ="com.foodPics.fvcameraPreview.message";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,29 +32,8 @@ public class entranceActivity extends Activity {
         mPhotoCapturedImageView = (ImageView) findViewById(R.id.capturePhotoImageView);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_entrance, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void takePhoto(View view) {
+    public void getDefaultCameraPreview(View view) {
         //Toast.makeText(this, "I love my Bei so much!", Toast.LENGTH_SHORT).show();
         Intent callCameraApplicationIntent = new Intent();
         callCameraApplicationIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -122,5 +101,13 @@ public class entranceActivity extends Activity {
     public void checkMealRecord(View view)
     {
         Toast.makeText(this, "Your meal record will be displayed shortly, features under development!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void getFvCameraPreview(View view)
+    {
+        Intent intent = new Intent(this, fvCameraActivity.class);
+        String fvCameraSampleMessage = "Here is the camera preview interface";
+        intent.putExtra(FVCAMERA_PREVIEW_MESSAGE, fvCameraSampleMessage);
+        startActivity(intent);
     }
 }
