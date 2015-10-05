@@ -34,7 +34,7 @@ public class entranceActivity extends Activity {
 
 
     public void getDefaultCameraPreview(View view) {
-        //Toast.makeText(this, "I love my Bei so much!", Toast.LENGTH_SHORT).show();
+
         Intent callCameraApplicationIntent = new Intent();
         callCameraApplicationIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
 
