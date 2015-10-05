@@ -2,6 +2,7 @@ package seniordesign.foodvolume;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.hardware.camera2.CameraDevice;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 public class fvCameraActivity extends Activity {
 
     public TextView cameraTextView;
+
+    private CameraDevice fvCameraDevice;
 
     ImageButton imageButton;
     @Override
@@ -38,6 +41,12 @@ public class fvCameraActivity extends Activity {
                 Toast.makeText(fvCameraActivity.this, "Taking picture now...", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+    }
+
+    protected void takePicture(){
+
 
     }
 }
