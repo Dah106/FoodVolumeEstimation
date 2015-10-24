@@ -14,20 +14,9 @@
         android:text="Welcome to FoodVolume!"
         android:id="@+id/welcomePageTextView"
         android:scaleType="fitCenter"
+        android:layout_marginTop="70dp"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/capturePhotoImageView"
-        android:layout_above="@+id/capturePhotoImageView"
-        android:layout_alignEnd="@+id/capturePhotoImageView" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Take a photo ^_^"
-        android:id="@+id/photoButton"
-        android:onClick="getDefaultCameraPreview"
-        android:layout_marginBottom="46dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/fvCameraPreviewButton" />
 
     <Button
         android:layout_width="wrap_content"
@@ -36,6 +25,7 @@
         android:id="@+id/mealRecordButton"
         android:onClick="checkMealRecord"
         android:scaleType="fitCenter"
+        android:layout_marginEnd="31dp"
         android:layout_alignTop="@+id/fvCameraPreviewButton"
         android:layout_alignParentEnd="true" />
 
@@ -46,20 +36,10 @@
         android:id="@+id/fvCameraPreviewButton"
         android:onClick="getFvCameraPreview"
         android:scaleType="fitCenter"
-        android:layout_alignTop="@+id/photoButton"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:id="@+id/capturePhotoImageView"
-        android:layout_gravity="top|left"
-        android:layout_height="180dp"
-        android:layout_width="400dp"
-        android:layout_above="@+id/mealRecordButton"
-        android:layout_centerHorizontal="true" />
-
-
-
-
+        android:layout_marginBottom="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="39dp" />
 
 
 </RelativeLayout>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 The Android Open Source Project
+ * Copyright 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,6 +51,9 @@ public class AutoFitTextureView extends TextureView {
     public void setAspectRatio(int width, int height) {
         if (width < 0 || height < 0) {
             throw new IllegalArgumentException("Size cannot be negative.");
+        }
+        if (mRatioWidth == width && mRatioHeight == height) {
+            return;
         }
         mRatioWidth = width;
         mRatioHeight = height;
