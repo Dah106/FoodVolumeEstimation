@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -70,16 +71,21 @@ public class fvCameraFragment extends Activity {
 
     private ImageButton cameraShutter;
 
+    private Button cameraDone;
 
     /**
      * An additional thread for running tasks that shouldn't block the UI.
      */
     private HandlerThread mBackgroundThread;
 
+    private HandlerThread mImageSaverThread;
+
     /**
      * A {@link Handler} for running tasks in the background.
      */
     private Handler mBackgroundHandler;
+
+    private Handler mImageSaverHandler;
 
     private ImageReader mReader;
 
@@ -113,6 +119,22 @@ public class fvCameraFragment extends Activity {
 
         });
 
+        cameraDone = (Button)findViewById(R.id.cameraDone);
+        cameraDone.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.e(TAG, "Camera is done!!!!");
+                Toast.makeText(getApplicationContext(), "Quiting camera...", Toast.LENGTH_SHORT).show();
+                cameraDone();
+            }
+        });
+
+    }
+
+    protected void cameraDone()
+    {
+        this.finish();
     }
 
     protected void takePicture() {
@@ -136,17 +158,15 @@ public class fvCameraFragment extends Activity {
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
 
             String currentDateTime = generateTimestamp();
-            final File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "JPEG_" + currentDateTime + ".jpg");
+            final File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "fv_" + currentDateTime + ".jpg");
 
-            HandlerThread thread = new HandlerThread("CameraPicture");
-            thread.start();
-            final Handler imageSaveHandler = new Handler(thread.getLooper());
+            startImageSaverThread();
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
 
                 @Override
                 public void onImageAvailable(ImageReader reader) {
 
-
+                    Log.d(TAG, "IMAGE IS AVAILABLE!!!!!!!");
                     Image image = null;
                     try {
                         image = reader.acquireLatestImage();
@@ -154,7 +174,10 @@ public class fvCameraFragment extends Activity {
                         byte[] bytes = new byte[buffer.capacity()];
                         buffer.get(bytes);
                         save(bytes);
-                        scanGallery();
+                        scanGallerySimple();
+                        image.close();
+                        stopImageSaverThread();
+
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -169,6 +192,7 @@ public class fvCameraFragment extends Activity {
                 private void save(byte[] bytes) throws IOException {
                     OutputStream output = null;
                     try {
+                        Log.d(TAG, "SAVING BYTES!!!!!");
                         output = new FileOutputStream(file);
                         output.write(bytes);
                     } finally {
@@ -177,26 +201,24 @@ public class fvCameraFragment extends Activity {
                         }
                     }
                 }
-                private void scanGallery()
-                {
-                    MediaScannerConnection.scanFile(getApplicationContext(), new String[]{file.getPath()},
-                /*mimeTypes*/null, new MediaScannerConnection.MediaScannerConnectionClient() {
-                        @Override
-                        public void onMediaScannerConnected() {
-                            // Do nothing
-                        }
 
-                        @Override
-                        public void onScanCompleted(String path, Uri uri) {
-                            Log.d(TAG, "Scanned " + path + ":");
-                            Log.d(TAG, "-> uri=" + uri);
-                        }
-                    });
+                private void scanGallerySimple()
+                {
+                    MediaScannerConnection.scanFile(
+                            getApplicationContext(),
+                            new String[]{file.getAbsolutePath()},
+                            null, new MediaScannerConnection.OnScanCompletedListener() {
+                                @Override
+                                public void onScanCompleted(String path, Uri uri) {
+                                    Log.d(TAG, "Scanned " + path + ":");
+                                    Log.d(TAG, "-> uri=" + uri);
+                                }
+                            });
                 }
 
             };
 
-            mReader.setOnImageAvailableListener(readerListener, imageSaveHandler);
+            mReader.setOnImageAvailableListener(readerListener, mImageSaverHandler);
 
             final CameraCaptureSession.CaptureCallback captureListener = new CameraCaptureSession.CaptureCallback() {
 
@@ -205,7 +227,15 @@ public class fvCameraFragment extends Activity {
                                                CaptureRequest request, TotalCaptureResult result) {
 
                     super.onCaptureCompleted(session, request, result);
-                    Toast.makeText(getApplicationContext(), "Saved:" + file, Toast.LENGTH_SHORT).show();
+
+                    Handler mHandler = new Handler(getMainLooper());
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Saved:" + file, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                     startPreview();
                 }
 
@@ -378,7 +408,7 @@ public class fvCameraFragment extends Activity {
                 @Override
                 public void onConfigureFailed(CameraCaptureSession session) {
 
-                    Toast.makeText(fvCameraFragment.this, "onConfigureFailed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "onConfigureFailed", Toast.LENGTH_LONG).show();
                 }
             }, null);
         } catch (CameraAccessException e) {
@@ -569,6 +599,29 @@ public class fvCameraFragment extends Activity {
             e.printStackTrace();
         }
     }
+    /**
+     * Starts a background thread and its {@link Handler}.
+     */
+    private void startImageSaverThread() {
+        mImageSaverThread = new HandlerThread("CameraImageSaver");
+        mImageSaverThread.start();
+        mImageSaverHandler = new Handler(mImageSaverThread.getLooper());
+    }
+
+    /**
+     * Stops the background thread and its {@link Handler}.
+     */
+    private void stopImageSaverThread() {
+        mImageSaverThread.quitSafely();
+        try {
+            mImageSaverThread.join();
+            mImageSaverThread = null;
+            mImageSaverHandler = null;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void closeCamera() {
 

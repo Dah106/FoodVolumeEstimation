@@ -24,15 +24,17 @@ public class entranceActivity extends Activity {
 
     public void getFvCameraPreview(View view)
     {
-        Intent intent = new Intent(this, cameraPreviewActivity.class);
+        Intent intent = new Intent(this, fvCameraFragment.class);
         startActivity(intent);
-        Toast.makeText(this, "Starting camera preview", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Starting camera preview...", Toast.LENGTH_SHORT).show();
     }
 
     public void checkMealRecord(View view)
     {
         //Intent intent = new Intent(this, mealRecordActivity.class);
-        Toast.makeText(this, "Your meal record will be displayed shortly, features under development!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, mealRecordActivity.class);
+        startActivity(intent);
+        Toast.makeText(this, "Displaying meal record...", Toast.LENGTH_SHORT).show();
     }
 
 
