@@ -31,7 +31,6 @@ public class entranceActivity extends Activity {
 
     public void checkMealRecord(View view)
     {
-        //Intent intent = new Intent(this, mealRecordActivity.class);
         Intent intent = new Intent(this, mealRecordActivity.class);
         startActivity(intent);
         Toast.makeText(this, "Displaying meal record...", Toast.LENGTH_SHORT).show();

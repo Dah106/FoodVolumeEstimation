@@ -17,7 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:id="@+id/frameLayout2">
 
 
         <ImageButton
@@ -39,5 +40,15 @@
         android:id="@+id/cameraDone"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/cubeView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/frameLayout2"
+        android:src="@drawable/tempcube"
+        android:alpha="0.25" />
 
 </RelativeLayout>

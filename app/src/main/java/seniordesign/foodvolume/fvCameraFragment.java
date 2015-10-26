@@ -36,6 +36,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -89,6 +90,7 @@ public class fvCameraFragment extends Activity {
 
     private ImageReader mReader;
 
+
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
     static {
@@ -107,6 +109,7 @@ public class fvCameraFragment extends Activity {
 
         mTextureView = (AutoFitTextureView)findViewById(R.id.texture);
         mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
+
 
         cameraShutter = (ImageButton)findViewById(R.id.cameraButton);
         cameraShutter.setOnClickListener(new OnClickListener() {

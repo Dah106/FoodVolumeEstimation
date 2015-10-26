@@ -4,15 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,20 +25,20 @@ import java.util.List;
 public class mealRecordActivity extends Activity implements
         AdapterView.OnItemClickListener {
 
-    private final static int RESULT_LOAD_IMG = 1;
     private final static String TAG = "mealRecord";
 
-    private ArrayList<Bitmap> imageList;
+    private ArrayList<Bitmap> imageBitmapList;
+
+    private ArrayList<Uri> imageUriList;
 
     private Button mealRecordButton;
 
     private ListView listView;
 
     List<mealRecordItem> rowItems;
-    List<mrItem> rItems;
 
 
-    private ImageView testImageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,18 +53,19 @@ public class mealRecordActivity extends Activity implements
 
                 Log.e(TAG, "Camera is done!!!!");
                 Toast.makeText(getApplicationContext(), "Quiting meal record...", Toast.LENGTH_SHORT).show();
-                mealRecordDone();
+                finish();
             }
         });
 
 
-        imageList = new ArrayList<>();
-        rItems = new ArrayList<>();
+        imageBitmapList = new ArrayList<>();
+        imageUriList = new ArrayList<>();
+        rowItems = new ArrayList<>();
 
         populateListView();
 
         listView = (ListView) findViewById(R.id.mealRecordList);
-        mealRecordListViewAdapter adapter = new mealRecordListViewAdapter(this, R.layout.meal_record_list_item, rItems);
+        mealRecordListViewAdapter adapter = new mealRecordListViewAdapter(this, R.layout.meal_record_list_item, rowItems);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
 
@@ -74,26 +74,31 @@ public class mealRecordActivity extends Activity implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Item " + (position + 1) + ": " + rowItems.get(position),
-                Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-        toast.show();
-    }
 
-    private void mealRecordDone()
-    {
-        this.finish();
+        Log.d(TAG, "Uri of the first image is: " + imageUriList.get(position));
+
+//        Toast toast = Toast.makeText(getApplicationContext(),
+//                "Item " + (position + 1) + ": " + rowItems.get(position),
+//               Toast.LENGTH_SHORT);
+//
+//        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+//        toast.show();
+
+        Uri imageUri = imageUriList.get(position);
+        Intent intent = new Intent(this, fullImageDemoActivity.class);
+        intent.setData(imageUri);
+        startActivity(intent);
+
     }
 
     private void populateListView()
     {
         if(loadImageFromGallery())
         {
-            for (int i = 0; i < imageList.size();i++)
+            for (int i = 0; i < imageBitmapList.size();i++)
             {
-                mrItem item = new mrItem(i, imageList.get(i));
-                rItems.add(item);
+                mealRecordItem item = new mealRecordItem(i, imageBitmapList.get(i), imageUriList.get(i));
+                rowItems.add(item);
             }
         }
         else
@@ -125,7 +130,11 @@ public class mealRecordActivity extends Activity implements
                 Bitmap normalBitmap = BitmapFactory.decodeFile(imageFileLocation);
 
                 Bitmap thumbnail = Bitmap.createScaledBitmap(normalBitmap, miniThumbWidth, miniThumbHeight, true);
-                imageList.add(thumbnail);
+
+                Uri imageUri = Uri.fromFile(new File(imageFileLocation));
+
+                imageBitmapList.add(thumbnail);
+                imageUriList.add(imageUri);
             }
             result = true;
         }

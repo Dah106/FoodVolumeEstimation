@@ -1,39 +1,38 @@
 package seniordesign.foodvolume;
 
-/**
- * Created by dah106 on 10/25/15.
- */
+
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 public class mealRecordItem {
 
     private int imageId;
-    private String title;
-    private String desc;
+    private Bitmap image;
+    private Uri imageUri;
 
-    public mealRecordItem(int imageId, String title, String desc) {
+
+    public mealRecordItem(int imageId, Bitmap image, Uri imageUri) {
+
         this.imageId = imageId;
-        this.title = title;
-        this.desc = desc;
+        this.image = image;
+        this.imageUri = imageUri;
     }
+
     public int getImageId() {
         return imageId;
     }
     public void setImageId(int imageId) {
         this.imageId = imageId;
     }
-    public String getDesc() {
-        return desc;
+
+    public Bitmap getImage() {
+        return image;
     }
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setImage(int imageId) {
+        this.image = image;
     }
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    @Override
-    public String toString() {
-        return title + "\n" + desc;
-    }
+
+    public Uri getImageUri(){return imageUri;}
+    public void setImageUri(Uri imageUri){this.imageUri = imageUri;}
+
 }

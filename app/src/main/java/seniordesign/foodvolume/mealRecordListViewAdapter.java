@@ -12,12 +12,12 @@ import android.widget.ImageView;
 import java.util.List;
 
 
-public class mealRecordListViewAdapter extends ArrayAdapter<mrItem> {
+public class mealRecordListViewAdapter extends ArrayAdapter<mealRecordItem> {
 
     Context context;
 
     public mealRecordListViewAdapter(Context context, int resourceId,
-                                 List<mrItem> items) {
+                                 List<mealRecordItem> items) {
         super(context, resourceId, items);
         this.context = context;
     }
@@ -29,7 +29,7 @@ public class mealRecordListViewAdapter extends ArrayAdapter<mrItem> {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        mrItem mrItem = getItem(position);
+        mealRecordItem mrItem = getItem(position);
 
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
