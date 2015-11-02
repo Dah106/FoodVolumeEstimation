@@ -45,10 +45,10 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:id="@+id/cubeView"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
         android:src="@drawable/oie_transparent"
-        android:alpha="0.75" />
+        android:alpha="0.20"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/frameLayout2" />
 
     <ImageView
         android:layout_width="100dp"
@@ -56,6 +56,6 @@
         android:id="@+id/crossView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/centercross" />
+        android:src="@drawable/center_cross_land" />
 
 </RelativeLayout>

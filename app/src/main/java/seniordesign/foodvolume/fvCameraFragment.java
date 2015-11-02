@@ -74,6 +74,10 @@ public class fvCameraFragment extends Activity {
 
     private Button cameraDone;
 
+    private ImageView centerCross;
+
+    private ImageView refCube;
+
     /**
      * An additional thread for running tasks that shouldn't block the UI.
      */

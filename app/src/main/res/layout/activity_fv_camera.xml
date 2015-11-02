@@ -55,7 +55,7 @@ android:layout_height="match_parent">
         android:layout_height="75dp"
         android:id="@+id/cubeView"
         android:src="@drawable/oie_transparent"
-        android:alpha="0.10"
+        android:alpha="0.20"
         android:layout_above="@+id/frameLayout"
         android:layout_alignParentEnd="true" />
 
@@ -65,6 +65,6 @@ android:layout_height="match_parent">
         android:id="@+id/crossView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/centercross" />
+        android:src="@drawable/center_cross" />
 
 </RelativeLayout>
