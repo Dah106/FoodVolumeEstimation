@@ -77,13 +77,6 @@ public class mealRecordActivity extends Activity implements
 
         Log.d(TAG, "Uri of the first image is: " + imageUriList.get(position));
 
-//        Toast toast = Toast.makeText(getApplicationContext(),
-//                "Item " + (position + 1) + ": " + rowItems.get(position),
-//               Toast.LENGTH_SHORT);
-//
-//        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-//        toast.show();
-
         Uri imageUri = imageUriList.get(position);
         Intent intent = new Intent(this, fullImageDemoActivity.class);
         intent.setData(imageUri);

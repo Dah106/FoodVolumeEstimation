@@ -43,12 +43,12 @@ public class fullImageDemoActivity extends Activity {
 
         // Fetch screen height and width, to use as our max size when loading images as this
         // activity runs full screen
-        final DisplayMetrics displayMetrics = new DisplayMetrics();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        final int height = displayMetrics.heightPixels;
-        final int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
 
-
+        Log.d(TAG, "Current screen width is: " + width + " height is: " + height);
         Uri imageUri = getIntent().getData();
         Bitmap bitmap;
         try {
@@ -60,10 +60,6 @@ public class fullImageDemoActivity extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-
 
     }
 }
