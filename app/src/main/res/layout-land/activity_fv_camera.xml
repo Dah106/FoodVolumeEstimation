@@ -42,13 +42,20 @@
         android:layout_alignParentStart="true" />
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:id="@+id/cubeView"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/frameLayout2"
-        android:src="@drawable/tempcube"
-        android:alpha="0.25" />
+        android:src="@drawable/oie_transparent"
+        android:alpha="0.75" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/crossView"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/centercross" />
 
 </RelativeLayout>

@@ -14,7 +14,7 @@
  limitations under the License.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
+android:layout_width="wrap_content"
 android:layout_height="match_parent">
 
 <seniordesign.foodvolume.AutoFitTextureView
@@ -51,12 +51,20 @@ android:layout_height="match_parent">
         android:layout_alignParentEnd="true" />
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:id="@+id/cubeView"
+        android:src="@drawable/oie_transparent"
+        android:alpha="0.10"
         android:layout_above="@+id/frameLayout"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/tempcube"
-        android:alpha="0.25" />
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/crossView"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/centercross" />
 
 </RelativeLayout>
