@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -16,14 +17,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by dah106 on 10/23/15.
  */
 public class mealRecordActivity extends Activity implements
-        AdapterView.OnItemClickListener {
+        AdapterView.OnItemClickListener, Serializable {
 
     private final static String TAG = "mealRecord";
 
@@ -35,9 +36,7 @@ public class mealRecordActivity extends Activity implements
 
     private ListView listView;
 
-    List<mealRecordItem> rowItems;
-
-
+    ArrayList<mealRecordItem> rowItems;
 
 
     @Override
@@ -46,29 +45,44 @@ public class mealRecordActivity extends Activity implements
         setContentView(R.layout.activity_meal_record);
 
 
-        mealRecordButton = (Button)findViewById(R.id.mealRecordDone);
-        mealRecordButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            mealRecordButton = (Button) findViewById(R.id.mealRecordDone);
+            mealRecordButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                Log.e(TAG, "Camera is done!!!!");
-                Toast.makeText(getApplicationContext(), "Quiting meal record...", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
+                        Log.e(TAG, "Camera is done!!!!");
+                        Toast.makeText(getApplicationContext(), "Quiting meal record...", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+            });
 
 
-        imageBitmapList = new ArrayList<>();
-        imageUriList = new ArrayList<>();
-        rowItems = new ArrayList<>();
 
-        populateListView();
+            imageBitmapList = new ArrayList<>();
+            imageUriList = new ArrayList<>();
+            rowItems = new ArrayList<>();
 
-        listView = (ListView) findViewById(R.id.mealRecordList);
-        mealRecordListViewAdapter adapter = new mealRecordListViewAdapter(this, R.layout.meal_record_list_item, rowItems);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
+            listView = (ListView) findViewById(R.id.mealRecordList);
+            listView.setOnItemClickListener(this);
 
+            new backgroundLoadListView().execute();
+
+            Log.d(TAG, "Creating the layout!");
+
+    }
+
+//    @Override
+//    protected void onSaveInstanceState(final Bundle outState) {
+//        outState.putSerializable("bitmapList", imageBitmapList);
+//        outState.putSerializable("urlList", imageUriList);
+//        outState.putSerializable("rowItems", (Serializable) rowItems);
+//    }
+
+    @Override
+    protected void onResume()
+    {
+        Log.e(TAG, "onResume");
+        super.onResume();
     }
 
     @Override
@@ -81,22 +95,14 @@ public class mealRecordActivity extends Activity implements
         Intent intent = new Intent(this, fullImageDemoActivity.class);
         intent.setData(imageUri);
         startActivity(intent);
-
     }
 
     private void populateListView()
     {
-        if(loadImageFromGallery())
+        for (int i = 0; i < imageBitmapList.size();i++)
         {
-            for (int i = 0; i < imageBitmapList.size();i++)
-            {
-                mealRecordItem item = new mealRecordItem(i, imageBitmapList.get(i), imageUriList.get(i));
-                rowItems.add(item);
-            }
-        }
-        else
-        {
-            Toast.makeText(getApplicationContext(), "Image folder is empty.", Toast.LENGTH_LONG).show();
+            mealRecordItem item = new mealRecordItem(i, imageBitmapList.get(i), imageUriList.get(i));
+            rowItems.add(item);
         }
     }
 
@@ -134,14 +140,30 @@ public class mealRecordActivity extends Activity implements
         return result;
     }
 
-
-    protected void startCameraPreview(Bundle savedInstanceState)
+    private class backgroundLoadListView extends AsyncTask<Void, Void, Void>
     {
-        Intent intent = new Intent(this, fvCameraFragment.class);
-        startActivity(intent);
-        Toast.makeText(this, "Starting camera preview...", Toast.LENGTH_SHORT).show();
+        @Override
+        protected void onPostExecute(Void result) {
+
+            Log.d(TAG, "setListAdapter after bitmap preloaded");
+            mealRecordListViewAdapter adapter = new mealRecordListViewAdapter(getApplicationContext(), R.layout.meal_record_list_item, rowItems);
+            listView.setAdapter(adapter);
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            Log.d(TAG, "preload bitmap in AsyncTask");
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            loadImageFromGallery();
+            populateListView();
+            return null;
+        }
     }
-
-
 
 }

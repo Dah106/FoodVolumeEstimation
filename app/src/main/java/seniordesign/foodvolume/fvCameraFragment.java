@@ -276,13 +276,20 @@ public class fvCameraFragment extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        startBackgroundThread();
+        if(mBackgroundThread == null)
+        {
+            startBackgroundThread();
+        }
         // When the screen is turned off and turned back on, the SurfaceTexture is already
         // available, and "onSurfaceTextureAvailable" will not be called. In that case, we can open
         // a camera and start preview from here (otherwise, we wait until the surface is ready in
         // the SurfaceTextureListener).
         if (mTextureView.isAvailable()) {
-            openCamera(mTextureView.getWidth(), mTextureView.getHeight());
+            Log.d(TAG, "On resume: textureview is available");
+
+            if(mCameraDevice == null) {
+                openCamera(mTextureView.getWidth(), mTextureView.getHeight());
+            }
         } else {
             mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
         }
@@ -301,7 +308,6 @@ public class fvCameraFragment extends Activity {
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
-        Log.e(TAG, "openCamera X");
     }
 
     private TextureView.SurfaceTextureListener mSurfaceTextureListener = new TextureView.SurfaceTextureListener(){
@@ -310,7 +316,9 @@ public class fvCameraFragment extends Activity {
         public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
 
             Log.e(TAG, "onSurfaceTextureAvailable, width="+width+",height="+height);
+
             openCamera(width, height);
+
         }
 
         @Override
@@ -327,7 +335,7 @@ public class fvCameraFragment extends Activity {
 
         @Override
         public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-            //Log.e(TAG, "onSurfaceTextureUpdated");  
+            //Log.d(TAG, "onSurfaceTextureUpdated");
         }
 
     };
@@ -338,6 +346,10 @@ public class fvCameraFragment extends Activity {
         public void onOpened(CameraDevice CameraDevice) {
 
             Log.e(TAG, "onOpened");
+            if(mBackgroundThread == null)
+            {
+                startBackgroundThread();
+            }
             mCameraDevice = CameraDevice;
             startPreview();
         }
@@ -368,7 +380,12 @@ public class fvCameraFragment extends Activity {
     protected void onPause() {
 
         super.onPause();
-        stopBackgroundThread();
+
+        if(mBackgroundThread != null)
+        {
+            stopBackgroundThread();
+        }
+
         closeCamera();
         Log.e(TAG, "onPause");
     }

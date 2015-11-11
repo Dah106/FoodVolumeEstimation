@@ -45,7 +45,7 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:id="@+id/cubeView"
-        android:src="@drawable/oie_transparent"
+        android:src="@drawable/transparent_cube_land"
         android:alpha="0.20"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/frameLayout2" />

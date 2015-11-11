@@ -42,7 +42,6 @@ public class mealRecordListViewAdapter extends ArrayAdapter<mealRecordItem> {
         } else
             holder = (ViewHolder) convertView.getTag();
 
-
         holder.imageView.setImageBitmap(mrItem.getImage());
 
         return convertView;
