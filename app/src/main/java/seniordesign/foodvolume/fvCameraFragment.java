@@ -57,6 +57,7 @@ import java.util.Locale;
 public class fvCameraFragment extends Activity {
 
     private final static String TAG = "fvCamera2";
+    private final static String imageFolderName = "FV";
     private Size mPreviewSize;
 
     private AutoFitTextureView mTextureView;
@@ -165,7 +166,16 @@ public class fvCameraFragment extends Activity {
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
 
             String currentDateTime = generateTimestamp();
-            final File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "fv_" + currentDateTime + ".jpg");
+
+            String directoryPath = Environment.getExternalStorageDirectory() + File.separator + imageFolderName;
+            File imageFolder = new File(directoryPath);
+
+            if(!imageFolder.exists())
+            {
+                imageFolder.mkdir();
+            }
+
+            final File file = new File(directoryPath, "fv_" + currentDateTime + ".jpg");
 
             startImageSaverThread();
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {

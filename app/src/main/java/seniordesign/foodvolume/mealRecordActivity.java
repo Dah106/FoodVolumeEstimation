@@ -28,6 +28,8 @@ public class mealRecordActivity extends Activity implements
 
     private final static String TAG = "mealRecord";
 
+    private final static String imageFolderName = "FV";
+
     private ArrayList<Bitmap> imageBitmapList;
 
     private ArrayList<Uri> imageUriList;
@@ -110,8 +112,9 @@ public class mealRecordActivity extends Activity implements
     {
 
         boolean result = false;
-        File imageFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString());
 
+        String directoryPath = Environment.getExternalStorageDirectory() + File.separator + imageFolderName;
+        File imageFolder = new File(directoryPath);
         Log.d(TAG, "Image Directory is: " + imageFolder.getAbsolutePath());
 
         if(imageFolder.exists())
