@@ -23,7 +23,7 @@
 
         <ImageButton
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:id="@+id/cameraButton"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
@@ -42,20 +42,21 @@
         android:layout_alignParentStart="true" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/cubeView"
-        android:src="@drawable/transparent_cube_land"
+        android:src="@drawable/even_1_burned"
         android:alpha="0.20"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/crossView"
         android:layout_toStartOf="@+id/frameLayout2" />
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/crossView"
+        android:src="@drawable/center_cross_triple"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/center_cross_land" />
+        android:layout_toEndOf="@+id/cameraDone"
+        android:layout_marginStart="73dp" />
 
 </RelativeLayout>

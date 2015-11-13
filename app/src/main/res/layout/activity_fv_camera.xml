@@ -33,7 +33,7 @@ android:layout_height="match_parent">
 
     <ImageButton
         android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:id="@+id/cameraButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -51,20 +51,21 @@ android:layout_height="match_parent">
         android:layout_alignParentEnd="true" />
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/cubeView"
-        android:src="@drawable/transparent_cube"
+        android:src="@drawable/even_1_burned"
         android:alpha="0.20"
         android:layout_above="@+id/frameLayout"
-        android:layout_alignParentEnd="true" />
+        android:layout_toStartOf="@+id/cameraDone" />
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/crossView"
-        android:layout_centerVertical="true"
+        android:src="@drawable/center_cross_triple"
+        android:layout_below="@+id/cameraDone"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/center_cross" />
+        android:layout_marginTop="121dp" />
 
 </RelativeLayout>
