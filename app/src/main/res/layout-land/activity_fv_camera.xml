@@ -33,21 +33,13 @@
 
     </FrameLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Done"
-        android:id="@+id/cameraDone"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/cubeView"
         android:src="@drawable/even_1_burned"
         android:alpha="0.20"
-        android:layout_below="@+id/crossView"
+        android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/frameLayout2" />
 
     <ImageView
@@ -55,8 +47,9 @@
         android:layout_height="100dp"
         android:id="@+id/crossView"
         android:src="@drawable/center_cross_triple"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/cameraDone"
-        android:layout_marginStart="73dp" />
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="65dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

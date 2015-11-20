@@ -73,8 +73,6 @@ public class fvCameraFragment extends Activity {
 
     private ImageButton cameraShutter;
 
-    private Button cameraDone;
-
     private ImageView centerCross;
 
     private ImageView refCube;
@@ -127,22 +125,6 @@ public class fvCameraFragment extends Activity {
 
         });
 
-        cameraDone = (Button)findViewById(R.id.cameraDone);
-        cameraDone.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Log.e(TAG, "Camera is done!!!!");
-                Toast.makeText(getApplicationContext(), "Quiting camera...", Toast.LENGTH_SHORT).show();
-                cameraDone();
-            }
-        });
-
-    }
-
-    protected void cameraDone()
-    {
-        this.finish();
     }
 
     protected void takePicture() {

@@ -42,14 +42,6 @@ android:layout_height="match_parent">
 
 </FrameLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Done"
-        android:id="@+id/cameraDone"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
-
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -57,15 +49,15 @@ android:layout_height="match_parent">
         android:src="@drawable/even_1_burned"
         android:alpha="0.20"
         android:layout_above="@+id/frameLayout"
-        android:layout_toStartOf="@+id/cameraDone" />
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/crossView"
         android:src="@drawable/center_cross_triple"
-        android:layout_below="@+id/cameraDone"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="121dp" />
+        android:layout_marginTop="89dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
