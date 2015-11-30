@@ -9,29 +9,10 @@
         android:id="@+id/texture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/frameLayout2">
-
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:id="@+id/cameraButton"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/camera_icon_land_1"
-            android:layout_gravity="right|center_vertical"
-            android:visibility="visible" />
-
-    </FrameLayout>
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="100dp"
@@ -40,7 +21,7 @@
         android:src="@drawable/even_1_burned"
         android:alpha="0.20"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/frameLayout2" />
+        android:layout_toStartOf="@+id/cameraButton" />
 
     <ImageView
         android:layout_width="100dp"
@@ -51,5 +32,15 @@
         android:layout_marginTop="65dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:id="@+id/cameraButton"
+        android:src="@drawable/camera_icon_land_1"
+        android:layout_gravity="right|center_vertical"
+        android:visibility="visible"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
